@@ -7,10 +7,17 @@
 <body>
 
 <script>
-    function enough(cap, on, wait) {
+    function createPhoneNumber(numbers){
+        let phone = "("+numbers[0]+numbers[1]+numbers[2]+") "+numbers[3]+numbers[4]+numbers[5]+"-"+""+numbers[6]+numbers[7]+numbers[8]+numbers[9];
 
-        return (cap>=on+wait)?0:(on+wait)-cap;
+        return phone;
     };
+    /*Вариант через splice() и join()*/
+    /*function createPhoneNumber(numbers){
+    let phone = "("+numbers.splice(0,3).join("")+") "+numbers.splice(0,3).join("")+"-"+""+numbers.splice(0,4).join("");
+
+    return phone;
+}*/
 </script>
 </body>
 </html>
