@@ -7,26 +7,18 @@
 <body>
 
 <script>
-/* Вариант с использованием рекурсии:
+    function getRealFloor(n) {
+        if(n<=0) {
 
-    function power(x,y){
-        if(y===0){
-            return  x=1;
+            return n;
+        } else if(n>0 && n<13) {
+
+            return n-1;
         } else {
-            return x*power(x, y-1)
+
+            return n-2;
         }
     }
-
- С использованием цыкла:
- */
-function power(x,y){
-    let pow = 1;
-    for(let i=0; i<y; i++) {
-        pow*=x;
-    }
-
-    return pow;
-}
 </script>
 </body>
 </html>
