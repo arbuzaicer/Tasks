@@ -7,9 +7,9 @@
 <body>
 
 <script>
-    function litres(time) {
+    function enough(cap, on, wait) {
 
-        return Math.floor(time/2);
+        return (cap>=on+wait)?0:(on+wait)-cap;
     };
 </script>
 </body>
