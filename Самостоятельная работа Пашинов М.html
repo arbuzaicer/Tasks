@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Самостоятельная работа Пашинов М.</title>
+    <script src="../../Tasks/current.js"></script>
+</head>
+<body>
+
+<script>
+    /* Задача 1
+    Написать ф-цию, которая будет может вызываться неограниченное количество раз в виде multipleSum(1)(2)(3)(4)(5)() // 15*/
+
+    function multipleSum(x) {
+        var summ = x;
+
+        function next(b) {
+            summ += b;
+
+            return next; // <-- подвызов
+        }
+        next.toString = function () {
+
+            return summ;
+        };
+
+        return next;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------------*/
+
+    /*Задача 2*/
+    /*Написать ф-цию проверки на монотонность*/
+
+    let array = [1,2,3,5,2];
+
+    function monotonn(arr) {
+
+        return arr.every(function(item, i, a) {
+
+            if (i) return item > a[i-1]; else return true; })
+    }
+    console.log(monotonn(array));
+
+    /*----------------------------------------------------------------------------------------------------------------------*/
+
+    /*Задача 3*/
+
+    /*написать ф-цию, которая отсортирует массив в порядке
+    Приоритеты продуктов такие:
+/*1 READY
+1.1   origin=BANK
+1.2   origin=CLIENT
+2 IN PROGRESS / IN PROGRESS2
+3 SCORING
+4 REJECTED
+5 NEW
+6 ACTIVE*!/*/
+
+    let products = [
+        {id: 'overdraft', status: 'ACTIVATED'},
+        {id: 'overdraft', status: 'READY', origin:'CLIENT'},
+        {id: 'creditLine', status: 'READY', origin:'CLIENT'},
+        {id: 'overdraft', status: 'REJECTED'},
+        {id: 'turnover', status: 'ACTIVATED'},
+        {id: 'overdraft', status: 'READY', origin:'BANK'},
+        {id: 'turnover', status: 'NEW'},
+        {id: 'turnover', status: 'IN PROGRESS'},
+        {id: 'creditLine', status: 'ACTIVATED'},
+        {id: 'creditLine', status: 'ACTIVE'},
+        {id: 'turnover', status: 'READY', origin:'BANK'},
+        {id: 'creditLine', status: 'IN PROGRESS2'},
+        {id: 'creditLine', status: 'SCORING'}
+    ];
+
+    function sorting(arr) {
+        let first = [];
+        var secondarr = [];
+
+        for (let i = 0; i < arr.length; i++) {
+
+            first.push(arr[i].status);
+        }
+
+        for (let j = 0; j < first.length; j++) {
+
+            if(first[j]==='READY') {
+                secondarr.push(first[j])
+            }
+        }
+
+        for (let j = 0; j < first.length; j++) {
+
+            if(first[j]==='IN PROGRESS' || first[j]==="IN PROGRESS2") {
+                secondarr.push(first[j])
+            }
+        }
+
+        for (let j = 0; j < first.length; j++) {
+
+            if(first[j]==='SCORING') {
+                secondarr.push(first[j])
+            }
+        }
+
+        for (let j = 0; j < first.length; j++) {
+
+            if(first[j]==='REJECTED') {
+                secondarr.push(first[j])
+            }
+        }
+
+        for (let j = 0; j < first.length; j++) {
+
+            if(first[j]==='NEW') {
+
+                secondarr.push(first[j])
+            }
+        }
+
+        for (let j = 0; j < first.length; j++) {
+
+            if(first[j]==='ACTIVE') {
+                secondarr.push(first[j])
+            }
+        }
+
+        return secondarr;
+    }
+
+    console.log(sorting(products))
+</script>
+</body>
+</html>
