@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework Lesson 8. Pashynov M.</title>
+</head>
+<body>
+
+<script>
+    /*------------------------------------------------------------------------------------------------------------------*/
+
+    /*Array plus array*/
+/*I'm new to coding and now I want to get the sum of two arrays...actually the sum of all their elements. I'll appreciate
+for your help. P.S. Each array includes only integer numbers. Output is a number too.*/
+    function arrayPlusArray(arr1, arr2) {
+        /*Решение с использованием метода Reduce() для каждого из массивов. Сначала один массив находит сумму,
+        затем второй.*/
+
+        return arr1.reduce(function (sum, current) {
+
+            return sum + current;
+        })+arr2.reduce(function (sum, current) {
+
+            return sum + current;
+        });
+    }
+    /*
+function arrayPlusArray(arr1, arr2) {
+    /!*Второй вариант: массивы соединяются в массивы методом concat. Т.е. сначала соединяется одни массив с другим
+    *arr1.concat(arr2), а потом уже используется Reduce() для обеих*!/
+    return arr1.concat(arr2).reduce(function (sum, current) {
+        return sum + current;
+    });
+}*/
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+
+    /*Check the exam*/
+/*The first input array contains the correct answers to an exam, like ["a", "a", "b", "d"]. The second one is "answers"
+array and contains student's answers.The two arrays are not empty and are the same length. Return the score for this
+array of answers, giving +4 for each correct answer, -1 for each incorrect answer, and +0 for each blank answer
+(empty string). If the score < 0, return 0.*/
+    function checkExam(array1, array2) {
+        var total = 0;
+
+        for (let i = 0; i < array1.length; i++) {
+
+            if (array2[i].length < 1) {
+                total += 0;
+            } else if (array1[i] === array2[i]) {
+
+                total += 4;
+            } else {
+
+                total -= 1;
+            }
+        }
+
+        if (total <= 0) {
+
+            return 0;
+        } else {
+
+            return total;
+        }
+    }
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+
+    /*Moving Zeros To The End*/
+/*Write an algorithm that takes an array and moves all of the zeros to the end, preserving the order of the
+other elements.*/
+    var moveZeros = function (arr) {
+        var noZeros = [];
+        var zeros = [];
+
+        for(let i = 0; i < arr.length; i++) {
+
+            if(arr[i]===0) {
+
+                zeros.push(arr[i]);
+            } else {
+
+                noZeros.push(arr[i]);
+            }
+        }
+
+        return noZeros.concat(zeros);
+    };
+    // Решение через фильтр:
+/*    var moveZeros = function (arr) {
+        var filteredNoZeros = arr.filter(function (num){return num !== 0;});
+        var filteredZeros = arr.filter(function (num){return num === 0;});
+        return filteredNoZeros.concat(filteredZeros);
+    }*/
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+
+    /*Simple Pig Latin*/
+/*Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks
+untouched.*/
+    function pigIt(str){
+        let tempStr = str.split(' ');
+        let returnStr = [];
+
+        for(let i = 0; i < tempStr.length; i++) {
+
+            if(tempStr[i].match(/\w/)) { // оператор \w - указывает на то, что проверка проходит только по буквам
+
+                returnStr.push(tempStr[i].slice(1)+tempStr[i].charAt(0)+"ay");
+            } else {
+
+                returnStr.push(tempStr[i]);
+            }
+        }
+
+        return returnStr.join(' ');
+    }
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+
+    /*Multiplication table*/
+/*Your task, is to create NxN multiplication table, of size provided in parameter.
+for example, when given size is 3:
+1 2 3
+2 4 6
+3 6 9
+for given example, the return value should be: [[1,2,3],[2,4,6],[3,6,9]]*/
+    multiplicationTable = function(size) {
+        let arr = []; //Это основной массив с всеми подмассивами
+
+        for(let i = 1; i <=size; i++) {
+            let arrTemp = [];
+
+            for(let j = 1; j<=size; j++) {
+                let tempValue = i*j; //Здесь будет создаваться вся таблица умножения. Сначала i - 1, преемножается на все j и т.д.
+                arrTemp.push(tempValue); //каждое полученное значение нужно вставить в промежуточный массив, а сам массив вставить в главный
+            }
+
+            arr.push(arrTemp);
+        }
+
+        return arr;
+    }
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+    /*Pete, the baker*/
+/*Pete likes to bake some cakes. He has some recipes and ingredients. Unfortunately he is not good in maths. Can you help
+ him to find out, how many cakes he could bake considering his recipes?
+Write a function cakes(), which takes the recipe (object) and the available ingredients (also an object) and returns the
+maximum number of cakes Pete can bake (integer). For simplicity there are no units for the amounts (e.g. 1 lb of flour
+or 200 g of sugar are simply 1 or 200). Ingredients that are not present in the objects, can be considered as 0.*/
+    function cakes(recipe, available) {
+        let recipeKeys = Object.keys(recipe); //создаю ключи объектов, нужных для рецепта
+        let avaliableKeys = Object.keys(available); //создаю ключи объектов, которые есть в наличии
+        let ingredientsArray = []; //создаю массив, в который будут внесены соотношения игредиентов: доступны/рецепт
+
+        if(!recipeKeys.every(    ingredients => //использование метода every(), который проверяет есть ли в свойствах available, доступные recipe
+
+            avaliableKeys.includes(ingredients)))return 0;
+
+        recipeKeys.forEach(function(key) { //использование метода forEach(), который проверяет все соответсвия объектов,
+            //recipe, available, и если они есть, пушит в массив ingredientsArray отношение available / recipe
+            ingredientsArray.push(available[key] / recipe[key]);
+
+            return ingredientsArray; //возвращаем массив значений
+        });
+
+        return Math.floor(Math.min.apply(null, ingredientsArray)); // округляем до меньшего, что бы получить количество целых рецептов
+    }
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+    /*Convert string to camel case*/
+/*Complete the method/function so that it converts dash/underscore delimited words into camel casing. The first word
+within the output should be capitalized only if the original word was capitalized (known as Upper Camel Case, also often
+referred to as Pascal case).*/
+    function toCamelCase(str){
+        let temp = str.split('-'); //делаю массив из строки
+        let currentItem = temp[0]; //отделяю первый элемент массива
+
+        if(temp.length>1) {//проверяю длинну массива, если больше 1 продолжаем
+
+            for(let i = 1; i < temp.length; i++) {
+
+                currentItem += temp[i].charAt(0).toUpperCase()+temp[i].slice(1);
+            }
+
+            return currentItem;
+        } else { //если длинна массива равна 1, пробую сплитить по "_", для этой задачи - проканало)
+
+            temp = str.split('_');
+            currentItem = temp[0];
+
+            for(let i = 1; i < temp.length; i++) {
+                currentItem += temp[i].charAt(0).toUpperCase()+temp[i].slice(1);
+            }
+
+            return currentItem;
+        }
+    }
+</script>
+</body>
+</html>
