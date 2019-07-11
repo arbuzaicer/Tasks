@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Самостоятельная работа Пашинов М. 11-07-2019</title>
+</head>
+<body>
+<script>
+    /*Задача 1*/
+    /*Реализуйте функцию removeProperty, которая принимает объек и имя свойства и выполняет следующие действия:
+Если объект obj имеет свойство prop, функция удаляет свойство из объекта и возвращает true; во всех остальных случаях возвращается false.*/
+
+    var obj1 = {
+        name: "Max"
+    };
+
+    function removeProperty(obj, prop) {
+
+        if(prop in obj) {
+            delete obj[prop];
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    console.log(removeProperty(obj1, "somth"));
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+    /*Задача 2*/
+    /*Напишите функцию, которая преобразует введенную пользователем дату в формате MM/DD/YYYY в формат, необходимый для API (YYYYMMDD). Параметр «userDate» и возвращаемое значение являются строками.
+    Например, следует преобразовать введенную пользователем дату «31.12.2014» в «20141231», подходящую для API.
+    function formatDate(userDate) {
+     // format from M/D/YYYY to YYYYMMDD
+    }
+    console.log(formatDate("12/31/2014"))*/
+
+    function userDate(date) {
+        var data = new Date(date);
+        return data.getFullYear()+""+(data.getMonth()+1)+""+data.getDate(); //getMonth+1 потому что месяц начинается с ноля
+    }
+    console.log(userDate("12/31/2014"));
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+    /*
+    Задача 3
+    класс Worker будет работать так:
+    let worker = new Worker('Имя', 'Фамилия', 10, 31);
+    console.log(worker.getRate()); //выведет 10
+    console.log(worker.getDays()); //выведет 31
+    console.log(worker.getSalary()); //выведет 310 - то есть 10*31
+    worker.setRate(20); //увеличим ставку
+    worker.setDays(10); //уменьшим дни
+    console.log(worker.getSalary()); //выведет 200 - то есть 20*10
+    класс PreciousWorker наследует у Worker будет работать так:
+    let preciousWorker = new PreciousWorker('Имя', 'Фамилия', 10, 31, 5);
+    console.log(worker.getRate()); //выведет 10
+    console.log(worker.getDays()); //выведет 31
+    console.log(worker.getSalary()); //выведет 1550 - то есть 10*31*5
+    worker.setRate(20); //увеличим ставку
+    worker.setDays(10); //уменьшим дни
+    console.log(worker.getSalary()); //выведет 1000 - то есть 20*10*5*/
+
+    function Worker(name, surename, rate, days) {
+        this.days = days;
+        this.rate = rate;
+
+        this.getRate = function() {
+
+            return this.rate;
+        };
+
+        this.getDays = function () {
+
+            return this.days;
+        };
+
+        this.getSalary = function () {
+
+            return this.rate*this.days;
+        };
+
+        this.setRate = function (value) {
+
+            return this.rate = value;
+        };
+
+        this.setDays = function (setDays) {
+
+            return this.days = setDays;
+        };
+
+    }
+
+    function PreciousWorker(name, surename, rate, days, somthing) {
+        this.somthing = somthing;
+
+        Worker.apply(this, arguments); //Наследуем Worker
+
+        var getSale = this.getSalary; //перезаписываем метод родиля (сохраняем)
+
+        this.getSalary = function () {//перезаписываем метод
+            return getSale.apply(this, arguments)*this.somthing;
+        }
+
+    }
+
+    var worker = new Worker("Ivan", "Ivanov", 10, 31);
+    worker.setRate(15);
+    worker.setDays(18);
+    console.log(worker.getSalary());
+
+    var guy2 = new PreciousWorker("Name", "SureName", 15, 20, 3);
+    guy2.getRate();
+    guy2.getDays();
+    console.log(guy2.getSalary());
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+    /*Дополнительное задание на поиск корректности открывающихся/закрывающихся скобок*/
+
+    function isBalanced(str){
+        var charIs = /[()]/g,
+            count = 0,
+            curr;
+        while(curr = charIs.exec(str), curr !== null){
+            if(curr == "(") {
+                count++;
+            } else if(curr == ")") {
+                count--;
+                if(count < 0) {
+                    return false;
+                }
+            }
+        }
+        return count == 0;
+    }
+
+    console.log(isBalanced('foo { bar { baz } boo }'));
+
+</script>
+</body>
+</html>
