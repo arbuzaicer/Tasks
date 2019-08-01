@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Самостоятельная работа №3. Пашинов М.В.</title>
+</head>
+<body>
+
+<script>
+/*2 Напишите функцию, принимающую на вход строку, и возвращающую первый символ, который встречается в строке только один раз.
+Если это буква, то она должна быть в том регистре, в котором она встретилась в строке. Например, для строки mAmaN вернуть N.
+Если все символы встречаются больше одного раза, вернуть пустую строку.*/
+
+function FirstNotRepeatedChar(str) {
+    var arr1 = str.split('');
+    var result = '';
+    var ctr = 0;
+
+    for (var x = 0; x < arr1.length; x++) {
+        ctr = 0;
+
+        for (var y = 0; y < arr1.length; y++)
+        {
+
+            if (arr1[x] === arr1[y]) {
+                ctr+= 1;
+            }
+
+        }
+
+        if (ctr < 2) {
+            result = arr1[x];
+            break;
+        }
+
+    }
+
+    return result;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+/*3 Напишите код функции sum, количество слагаемых не ограничено */
+
+    function multipleSum(x) {
+        var summ = x;
+
+        function next(b) {
+            summ += b;
+
+            return next; // <-- подвызов
+        }
+
+        next.toString = function () {
+
+            return summ;
+        };
+
+        return next;
+    }
+    alert(multipleSum(3)(5));
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+/* 4. Напишите код функции reverse (без использования строк, массивов, циклов). На вход только по порядку.
+console.log(reverse(12345)); // 54321 */
+
+function numberPalindrom (value) {
+    var a = value;
+    var b, sum = 0;
+
+    while(a > 0)
+    {
+        b = a % 10;
+        sum = sum * 10 + b;
+        a = parseInt(a / 10);
+    }
+
+    return sum;
+}
+    console.log(numberPalindrom(4567));
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+/*5. You are given an array (which will have a length of at least 3, but could be very large) containing integers. The
+array is either entirely comprised of odd integers or entirely comprised of even integers except for a single integer N.
+ Write a method that takes the array as an argument and returns this "outlier" N.*/
+
+function findUnigueElemet(arr){
+
+    var oddNumbers = arr.filter(function (item) {
+
+        return item%2!==0;
+    });
+
+    var evenNumbers = arr.filter(function (item){
+
+        return item%2==0;
+    });
+
+    return oddNumbers.length === 1? oddNumbers[0] : evenNumbers[0];
+}
+
+var arr = [2, 4, 0, 100, 4, 11, 2602, 36];
+console.log(findUnigueElemet(arr));
+
+
+</script>
+</body>
+</html>
